@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TechniBois — Étape 6 · Décision commande</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="index.html" class="brand"><div class="brand-mark">TB</div><div class="brand-text">TechniBois <em>Industrie</em></div></a>
+    <a href="index.html" class="btn-home">← Menu</a>
+  </div>
+</header>
+<div class="progress-strip">
+  <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+  <div class="progress-pts" id="progress-pts">0 / 80 pts</div>
+</div>
+<div class="page-wrap">
+  <span class="page-eyebrow">Étape 6 / 8 · 12 pts</span>
+  <h1 class="page-title">Commande <em>exceptionnelle</em></h1>
+  <p style="color:var(--muted);font-size:14px;margin-bottom:28px;">Un client propose une commande hors catalogue. Faut-il accepter ? Raisonnez sur les coûts supplémentaires, pas sur le coût complet normal.</p>
+
+  <div class="step-header">
+    <div class="step-badge">Analyse de rentabilité · Décision</div>
+    <div class="step-title">Un distributeur demande 300 bureaux Premium à 230 €/u. TechniBois ne peut en produire que 220 normalement.</div>
+  </div>
+  <div class="step-body">
+
+    <div class="hl-box">
+      <strong>Situation :</strong> 300 bureaux commandés · Capacité : 220 · Manque : <strong>80 bureaux</strong> à produire en heures supplémentaires.<br>
+      Prix offert : <strong>230 €/u</strong> · Temps HS : 30 min/bureau · Coût horaire HS : 52 €/h · Coût variable hors découpe : 145 €/u
+    </div>
+
+    <div class="info-tip">Logique clé : le coût complet de 204,88 € n'est pas la bonne référence ici. Les charges fixes sont déjà couvertes par la production normale. On doit comparer le prix de vente aux <strong>coûts supplémentaires uniquement</strong>.</div>
+
+    <!-- CALCULS -->
+    <div class="section-label" style="margin-bottom:10px;">Calculs préparatoires</div>
+
+    <div class="input-row">
+      <div class="input-row-label">① Heures supplémentaires nécessaires<br><span style="font-size:11px;font-weight:400;color:var(--muted);">80 bureaux × 0,5h</span></div>
+      <input class="num-input" id="hs1" type="number" placeholder="?">
+      <span class="input-unit">h</span>
+      <span id="r-hs1"></span>
+    </div>
+    <div class="input-row">
+      <div class="input-row-label">② Coût total des heures sup.<br><span style="font-size:11px;font-weight:400;color:var(--muted);">40h × 52 €/h</span></div>
+      <input class="num-input" id="hs2" type="number" placeholder="?">
+      <span class="input-unit">€</span>
+      <span id="r-hs2"></span>
+    </div>
+    <div class="input-row">
+      <div class="input-row-label">③ Coût HS unitaire<br><span style="font-size:11px;font-weight:400;color:var(--muted);">2 080 € ÷ 80 bureaux</span></div>
+      <input class="num-input" id="hs3" type="number" placeholder="?">
+      <span class="input-unit">€/u</span>
+      <span id="r-hs3"></span>
+    </div>
+    <div class="input-row">
+      <div class="input-row-label">④ Marge unitaire sur commande<br><span style="font-size:11px;font-weight:400;color:var(--muted);">230 − 145 − 26</span></div>
+      <input class="num-input" id="hs4" type="number" placeholder="?">
+      <span class="input-unit">€/u</span>
+      <span id="r-hs4"></span>
+    </div>
+    <div class="input-row">
+      <div class="input-row-label">⑤ Marge totale<br><span style="font-size:11px;font-weight:400;color:var(--muted);">59 €/u × 80 bureaux</span></div>
+      <input class="num-input" id="hs5" type="number" placeholder="?">
+      <span class="input-unit">€</span>
+      <span id="r-hs5"></span>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- RAISONNEMENT -->
+    <div class="section-label">Raisonnement décisionnel</div>
+    <p style="font-size:14px;color:var(--text);margin-bottom:14px;">Sur la base de vos calculs, quelle décision prenez-vous ?</p>
+
+    <div class="choices" id="dec6">
+      <label class="choice"><input type="radio" name="dec6" value="accept"><span class="choice-dot"><span class="choice-dot-inner"></span></span><span><strong>Accepter la commande</strong> — la marge sur coûts supplémentaires est positive, l'opération est rentable.</span></label>
+      <label class="choice"><input type="radio" name="dec6" value="refuse"><span class="choice-dot"><span class="choice-dot-inner"></span></span><span><strong>Refuser</strong> — le prix de 230 € est inférieur au coût complet de 204,88 €, donc pas rentable.</span></label>
+      <label class="choice"><input type="radio" name="dec6" value="negoc"><span class="choice-dot"><span class="choice-dot-inner"></span></span><span><strong>Négocier le prix</strong> sans analyse complémentaire.</span></label>
+    </div>
+
+    <div class="section-label" style="margin-top:18px;">Justification de votre décision</div>
+    <div class="choices" id="just6">
+      <label class="choice"><input type="checkbox" name="just6" value="j1"><span class="choice-dot choice-check"><span class="choice-dot-inner"></span></span><span>Les charges fixes sont déjà couvertes par la production normale : on compare au coût marginal uniquement.</span></label>
+      <label class="choice"><input type="checkbox" name="just6" value="j2"><span class="choice-dot choice-check"><span class="choice-dot-inner"></span></span><span>Il faut vérifier que les ateliers peuvent absorber les 80 heures sup. sans désorganiser la production normale.</span></label>
+      <label class="choice"><input type="checkbox" name="just6" value="j3"><span class="choice-dot choice-check"><span class="choice-dot-inner"></span></span><span>Le coût complet est la seule référence valide pour tout type de décision.</span></label>
+      <label class="choice"><input type="checkbox" name="just6" value="j4"><span class="choice-dot choice-check"><span class="choice-dot-inner"></span></span><span>Une marge positive sur coûts variables est une condition nécessaire mais pas toujours suffisante.</span></label>
+    </div>
+
+    <div class="fb-block" id="fb-6">
+      <h4>✅ Correction — Commande exceptionnelle</h4>
+      <p><strong>Calculs :</strong> 80 × 0,5h = 40h · 40 × 52 = 2 080 € · 2 080/80 = 26 €/u · 230 − 145 − 26 = <strong>59 €/u</strong> · 59 × 80 = <strong>4 720 €</strong> de marge totale.</p>
+      <p style="margin-top:10px;"><strong>Décision : Accepter</strong> — car on raisonne sur les coûts <em>supplémentaires</em>. Les charges fixes étant déjà absorbées, tout ce qui couvre les coûts variables + HS génère de la marge.</p>
+      <p style="margin-top:8px;"><strong>Justifications valides :</strong> J1 (raisonnement marginal) · J2 (risque opérationnel) · J4 (condition nécessaire mais pas suffisante).<br>
+      J3 est faux : le coût complet est pertinent pour fixer les prix normaux, pas pour des décisions marginales.</p>
+      <div class="fb-score" id="sc-6">Score : 0 / 12</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="valider()">Valider →</button>
+      <a href="memo.html" class="btn btn-secondary">📋 Mémo</a>
+      <button class="btn btn-ghost" onclick="passer()">Passer →</button>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <a href="etape5.html" class="btn btn-secondary">← Étape 5</a>
+    <a href="etape7.html" class="btn btn-ghost" id="btn-next" style="display:none;">Étape 7 →</a>
+  </div>
+</div>
+
+<script src="common.js"></script>
+<script>
+const calcAns = [40, 2080, 26, 59, 4720];
+function valider() {
+  let pts = 0;
+  // Calculs (6 pts)
+  for (let i = 0; i < 5; i++) {
+    const v = parseFloat(document.getElementById('hs'+(i+1)).value);
+    const ok = !isNaN(v) && Math.abs(v - calcAns[i]) < 0.5;
+    if (ok) pts += (i < 3 ? 1 : 1.5);
+    fbInline('r-hs'+(i+1), ok, calcAns[i]);
+  }
+  pts = Math.round(pts);
+  // Décision (2 pts)
+  const dec = document.querySelector('input[name="dec6"]:checked');
+  if (dec && dec.value === 'accept') pts += 2;
+  markChoices('dec6', ['accept']);
+  // Justifications (4 pts)
+  const checked = Array.from(document.querySelectorAll('input[name="just6"]:checked')).map(i=>i.value);
+  const correct = ['j1','j2','j4'];
+  const goodPicks = checked.filter(v => correct.includes(v)).length;
+  const badPicks  = checked.filter(v => !correct.includes(v)).length;
+  if (goodPicks >= 2 && badPicks === 0) pts += 4;
+  else if (goodPicks >= 1 && badPicks === 0) pts += 2;
+  markChoices('just6', correct);
+  pts = Math.min(pts, 12);
+  setScore(6, pts);
+  document.getElementById('sc-6').textContent = 'Score : ' + pts + ' / 12';
+  showFeedback('fb-6');
+  document.getElementById('btn-next').style.display = '';
+}
+function passer() { setScore(6,0); window.location.href = 'etape7.html'; }
+</script>
+</body>
+</html>
