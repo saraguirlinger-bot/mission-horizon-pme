@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TechniBois — Rapport de résultats</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ── RÉSULTATS SPÉCIFIQUE ── */
+.result-hero {
+  background: var(--dark);
+  border-radius: var(--radius);
+  padding: 40px 32px;
+  margin-bottom: 24px;
+  position: relative; overflow: hidden;
+}
+.result-hero::before {
+  content: '';
+  position: absolute; top: 0; right: 0;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle at 80% 20%, rgba(107,158,114,0.12) 0%, transparent 65%);
+  pointer-events: none;
+}
+.result-hero-inner { position: relative; z-index: 1; display: flex; align-items: center; gap: 32px; flex-wrap: wrap; }
+.score-ring {
+  width: 110px; height: 110px; flex-shrink: 0;
+  border-radius: 50%; border: 3px solid var(--green);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.score-ring-val {
+  font-family: var(--ff-display);
+  font-size: 42px; color: var(--green-l); line-height: 1;
+}
+.score-ring-max { font-size: 12px; color: rgba(255,255,255,0.4); }
+.hero-details { flex: 1; min-width: 180px; }
+.hero-apprenant { font-size: 12px; color: rgba(255,255,255,0.4); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.1em; }
+.hero-name { font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+.hero-note { font-family: var(--ff-mono); font-size: 32px; font-weight: 500; color: var(--green-l); }
+.hero-pct  { font-size: 13px; color: rgba(255,255,255,0.5); }
+.hero-badge-wrap { margin-top: 10px; }
+
+/* ── PROFIL CARD ── */
+.profile-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--gold);
+  border-radius: var(--radius);
+  padding: 28px 28px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+.profile-header {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 18px;
+}
+.profile-icon { font-size: 28px; }
+.profile-label {
+  font-family: var(--ff-display);
+  font-size: 22px; font-weight: 400; color: var(--text);
+}
+.profile-desc { font-size: 14px; color: var(--muted); margin-bottom: 20px; line-height: 1.7; }
+.profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+@media(max-width:540px) { .profile-grid { grid-template-columns: 1fr; } }
+.profile-block {
+  background: var(--surface); border-radius: var(--radius);
+  padding: 14px 16px; border-left: 3px solid var(--border);
+}
+.profile-block.green { border-left-color: var(--green); }
+.profile-block.gold  { border-left-color: var(--gold); }
+.profile-block.dark  { border-left-color: var(--muted); }
+.profile-block-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.profile-block-text { font-size: 14px; color: var(--text); line-height: 1.6; }
+.profile-next {
+  background: #fdf8ee;
+  border: 1px solid #e8d9a0;
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  font-size: 14px; color: #4a3a10;
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.profile-next::before { content: '→'; font-weight: 700; color: var(--gold); flex-shrink: 0; }
+
+/* ── COMP GRID ── */
+.comp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; margin-bottom: 20px; }
+.comp-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  position: relative; overflow: hidden;
+}
+.comp-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--border);
+}
+.comp-card.full::before  { background: var(--green); }
+.comp-card.good::before  { background: var(--gold); }
+.comp-card.weak::before  { background: #ddd; }
+.comp-name { font-size: 12px; color: var(--muted); margin-bottom: 8px; line-height: 1.4; }
+.comp-bar-wrap { height: 3px; background: #eee; border-radius: 1px; overflow: hidden; margin-bottom: 8px; }
+.comp-bar { height: 100%; border-radius: 1px; transition: width 0.8s ease; }
+.comp-score { font-family: var(--ff-mono); font-size: 18px; font-weight: 600; color: var(--text); }
+.comp-max   { font-family: var(--ff-mono); font-size: 11px; color: var(--muted); }
+
+/* ── DETAIL TABLE ── */
+.detail-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.detail-table th { background: var(--dark); color: rgba(255,255,255,0.8); font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 10px 14px; text-align: left; }
+.detail-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
+.detail-table tr:last-child td { border-bottom: none; }
+.chip {
+  display: inline-block; font-size: 11px; font-weight: 700;
+  padding: 3px 8px; border-radius: 2px;
+  font-family: var(--ff-mono);
+}
+.chip-full { background: #e2f0e4; color: var(--green-d); }
+.chip-good { background: #fdf3dc; color: #8a6010; }
+.chip-weak { background: #f0f0ec; color: #888; }
+.chip-zero { background: #fde8e6; color: var(--red); }
+
+/* ── PRINT ── */
+@media print {
+  .topbar, .progress-strip, .no-print { display: none !important; }
+  body { background: #fff; }
+  .page-wrap { padding: 20px; }
+  .result-hero { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar no-print">
+  <div class="topbar-inner">
+    <a href="index.html" class="brand"><div class="brand-mark">TB</div><div class="brand-text">TechniBois <em>Industrie</em></div></a>
+    <a href="index.html" class="btn-home">← Menu</a>
+  </div>
+</header>
+<div class="progress-strip no-print">
+  <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+  <div class="progress-pts" id="progress-pts">0 / 80 pts</div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- HERO SCORE -->
+  <div class="result-hero" id="result-hero">
+    <div class="result-hero-inner">
+      <div class="score-ring">
+        <div class="score-ring-val" id="r-score">—</div>
+        <div class="score-ring-max">/ 80 pts</div>
+      </div>
+      <div class="hero-details">
+        <div class="hero-apprenant">Rapport de résultats</div>
+        <div class="hero-name" id="r-name">—</div>
+        <div class="hero-note" id="r-note">—</div>
+        <div class="hero-pct" id="r-pct"></div>
+        <div class="hero-badge-wrap">
+          <span class="r-badge" id="r-badge" style="display:inline-block;font-size:11px;font-weight:700;color:var(--green-l);border:1px solid rgba(107,158,114,0.35);padding:4px 12px;border-radius:2px;">—</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROFIL APPRENANT -->
+  <div class="profile-card" id="profile-card">
+    <div class="profile-header">
+      <div class="profile-icon" id="p-icon">🎯</div>
+      <div class="profile-label" id="p-label">Chargement…</div>
+    </div>
+    <p class="profile-desc" id="p-desc"></p>
+    <div class="profile-grid">
+      <div class="profile-block green">
+        <div class="profile-block-label">✅ Points forts</div>
+        <div class="profile-block-text" id="p-strengths"></div>
+      </div>
+      <div class="profile-block gold">
+        <div class="profile-block-label">📈 À travailler</div>
+        <div class="profile-block-text" id="p-improve"></div>
+      </div>
+    </div>
+    <div class="profile-block dark" style="margin-bottom:14px;">
+      <div class="profile-block-label">💡 Conseil pédagogique</div>
+      <div class="profile-block-text" id="p-conseil"></div>
+    </div>
+    <div class="profile-next" id="p-next"></div>
+  </div>
+
+  <!-- COMPÉTENCES -->
+  <div class="id-card">
+    <span class="page-eyebrow" style="margin-bottom:14px;">Tableau des compétences</span>
+    <div class="comp-grid" id="comp-grid"></div>
+  </div>
+
+  <!-- DÉTAIL ── -->
+  <div class="id-card">
+    <span class="page-eyebrow" style="margin-bottom:14px;">Détail par étape</span>
+    <table class="detail-table" id="detail-table">
+      <thead>
+        <tr>
+          <th>Étape</th>
+          <th>Compétence</th>
+          <th>Score</th>
+          <th>Observation</th>
+        </tr>
+      </thead>
+      <tbody id="detail-tbody"></tbody>
+    </table>
+  </div>
+
+  <!-- ACTIONS ── -->
+  <div class="id-card no-print">
+    <span class="page-eyebrow" style="margin-bottom:12px;">Export &amp; actions</span>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Sauvegardez ou partagez vos résultats. Compatible avec les plateformes LMS, API REST, WordPress.</p>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="window.print()">🖨 Imprimer / Exporter PDF</button>
+      <button class="btn btn-secondary" onclick="copyJSON()">📋 Copier JSON</button>
+      <button class="btn btn-secondary" onclick="downloadJSON()">⬇ Télécharger JSON</button>
+      <button class="btn btn-dark" onclick="envoyerServeur()">☁ Envoyer sur horizonpme.fr</button>
+    </div>
+    <div style="margin-top:12px;font-size:12px;color:var(--muted);" id="send-status"></div>
+  </div>
+
+  <div class="btn-row no-print">
+    <a href="index.html" class="btn btn-secondary">← Retour au menu</a>
+    <button class="btn btn-ghost" onclick="if(confirm('Recommencer depuis zéro ?')){localStorage.clear();window.location.href='index.html';}">↺ Réinitialiser</button>
+  </div>
+</div>
+
+<script src="common.js"></script>
+<script>
+const FEEDBACKS = {
+  1: 'Classification directe/indirecte et fixe/variable/semi-variable.',
+  2: 'Choix de l\'unité d\'œuvre selon le facteur générateur de coûts.',
+  3: 'Calcul du taux UO : charges du centre ÷ volume total d\'UO.',
+  4: 'Coût complet : cumul des charges directes + imputations indirectes.',
+  5: 'Inducteurs ABC : identifier ce qui déclenche réellement la consommation.',
+  6: 'Raisonnement marginal : coût supplémentaire vs marge sur vente.',
+  7: 'Comparaison d\'options (HS vs CB) et calcul du seuil d\'indifférence.',
+  8: 'Synthèse décisionnelle : cohérence des recommandations managériales.'
+};
+
+window.addEventListener('DOMContentLoaded', buildResults);
+
+function buildResults() {
+  const s = loadState();
+  const id = s.identity || {};
+  const nom    = (id.prenom || '') + (id.prenom && id.nom ? ' ' : '') + (id.nom || '');
+  const groupe = id.groupe || '';
+
+  const tot  = getTotalScore();
+  const note = Math.round(tot / 80 * 20 * 10) / 10;
+  const pct  = Math.round(tot / 80 * 100);
+  const prof = getProfile(pct);
+
+  updateProgress();
+
+  // Hero
+  document.getElementById('r-score').textContent = tot;
+  document.getElementById('r-name').textContent  = nom || 'Apprenant';
+  document.getElementById('r-note').textContent  = note + ' / 20';
+  document.getElementById('r-pct').textContent   = pct + '% de réussite' + (groupe ? ' · ' + groupe : '');
+  document.getElementById('r-badge').textContent = prof.label;
+
+  // Profil
+  const [icon, ...labelParts] = prof.label.split(' ');
+  document.getElementById('p-icon').textContent = icon;
+  document.getElementById('p-label').textContent = labelParts.join(' ');
+  document.getElementById('p-desc').textContent = prof.desc;
+  document.getElementById('p-strengths').textContent = prof.strengths;
+  document.getElementById('p-improve').textContent   = prof.improve;
+  document.getElementById('p-conseil').textContent   = prof.conseil;
+  document.getElementById('p-next').textContent      = 'Prochaine étape : ' + prof.next;
+
+  // Comp grid
+  const grid = document.getElementById('comp-grid');
+  for (let i = 1; i <= 8; i++) {
+    const sc = getScore(i), mx = STEP_MAX[i];
+    const ratio = sc / mx;
+    const cls   = ratio === 1 ? 'full' : ratio >= 0.5 ? 'good' : 'weak';
+    const barColor = ratio === 1 ? 'var(--green)' : ratio >= 0.5 ? 'var(--gold)' : '#ddd';
+    const card = document.createElement('div');
+    card.className = 'comp-card ' + cls;
+    card.innerHTML = `
+      <div class="comp-name">${STEP_NAMES[i]}</div>
+      <div class="comp-bar-wrap"><div class="comp-bar" style="width:${ratio*100}%;background:${barColor};"></div></div>
+      <span class="comp-score">${sc}</span><span class="comp-max"> / ${mx}</span>
+    `;
+    grid.appendChild(card);
+  }
+
+  // Detail table
+  const tbody = document.getElementById('detail-tbody');
+  for (let i = 1; i <= 8; i++) {
+    const sc = getScore(i), mx = STEP_MAX[i];
+    const ratio = sc / mx;
+    let chipClass, chipLabel;
+    if (ratio === 1)      { chipClass = 'chip-full'; chipLabel = sc+'/'+mx+' ✓'; }
+    else if (ratio >= .5) { chipClass = 'chip-good'; chipLabel = sc+'/'+mx; }
+    else if (sc > 0)      { chipClass = 'chip-weak'; chipLabel = sc+'/'+mx; }
+    else                  { chipClass = 'chip-zero'; chipLabel = '0/'+mx; }
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td style="font-family:var(--ff-mono);font-size:12px;color:var(--muted);">0${i}</td>
+      <td style="font-weight:600;">${STEP_NAMES[i]}</td>
+      <td><span class="chip ${chipClass}">${chipLabel}</span></td>
+      <td style="font-size:12px;color:var(--muted);">${FEEDBACKS[i]}</td>
+    `;
+    tbody.appendChild(tr);
+  }
+
+  // Build reporting data
+  window.reportingData = {
+    mission: 'TechniBois — Pilotage par les coûts',
+    apprenant: { nom: id.nom||'—', prenom: id.prenom||'—', groupe: id.groupe||'—' },
+    date: new Date().toISOString(),
+    scoreTotal: tot, scoreMax: 80, note20: note, pourcentage: pct,
+    profil: prof.label,
+    detailEtapes: Object.fromEntries(
+      Array.from({length:8},(_,i)=>[STEP_NAMES[i+1],{score:getScore(i+1),max:STEP_MAX[i+1]}])
+    )
+  };
+}
+
+function copyJSON() {
+  navigator.clipboard.writeText(JSON.stringify(window.reportingData, null, 2))
+    .then(() => alert('✅ JSON copié !'))
+    .catch(() => alert('Erreur — copiez manuellement.'));
+}
+
+function downloadJSON() {
+  const b = new Blob([JSON.stringify(window.reportingData,null,2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(b);
+  a.download = 'resultats-technibois-' + new Date().toISOString().split('T')[0] + '.json';
+  a.click();
+}
+
+function envoyerServeur() {
+  const s = loadState(), id = s.identity||{};
+  const tot = getTotalScore();
+  const pct = Math.round(tot / 80 * 100);
+  const prof = getProfile(pct);
+  const detail = Object.fromEntries(
+    Array.from({length:8},(_,i)=>[STEP_NAMES[i+1],{score:getScore(i+1),max:STEP_MAX[i+1]}])
+  );
+  const el = document.getElementById('send-status');
+  el.textContent = 'Envoi en cours…';
+  fetch('https://www.horizonpme.fr/save-technibois.php', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      nom: id.nom||'—', prenom: id.prenom||'—', classe: id.groupe||'—',
+      score: tot, badge: prof.label, detail
+    })
+  })
+  .then(r => r.json())
+  .then(d => { el.textContent = d.success ? '✅ Résultats envoyés avec succès.' : '⚠️ Erreur : ' + d.error; })
+  .catch(() => { el.textContent = '⚠️ Connexion impossible à horizonpme.fr.'; });
+}
+</script>
+</body>
+</html>
