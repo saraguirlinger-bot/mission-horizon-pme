@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TechniBois — Étape 1 · Classification des charges</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="../index.html" class="brand">
+      <div class="brand-mark">TB</div>
+      <div class="brand-text">TechniBois <em>Industrie</em></div>
+    </a>
+    <a href="../index.html" class="btn-home">← Menu</a>
+  </div>
+</header>
+
+<div class="progress-strip">
+  <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+  <div class="progress-pts" id="progress-pts">0 / 80 pts</div>
+</div>
+
+<div class="page-wrap">
+
+  <span class="page-eyebrow">Étape 1 / 8 · 16 pts</span>
+  <h1 class="page-title">Classification <em>des charges</em></h1>
+  <p style="color:var(--muted);font-size:14px;margin-bottom:28px;">Pour piloter les coûts, il faut d'abord savoir ce qu'on mesure et pourquoi chaque charge évolue.</p>
+
+  <!-- STEP BLOCK -->
+  <div class="step-header">
+    <div class="step-badge">Situation professionnelle</div>
+    <div class="step-title">Le contrôleur de gestion de TechniBois vous remet la liste des charges du mois.</div>
+  </div>
+  <div class="step-body">
+
+    <div class="ctx-box">
+      <strong>Objectif :</strong> Pour chaque charge, déterminez si elle est <strong>directe</strong> (imputable sans calcul à un produit) ou <strong>indirecte</strong> (nécessite une clé de répartition), puis sa nature : <strong>fixe</strong> (indépendante du volume), <strong>variable</strong> (proportionnelle au volume) ou <strong>semi-variable</strong> (part fixe + part variable).
+    </div>
+
+    <div class="info-tip">Si vous hésitez sur une charge, demandez-vous : <em>"Si je produis zéro unité ce mois-ci, est-ce que je paie quand même ?"</em> → Oui = fixe. <em>"Est-ce que cette charge concerne directement un seul produit ?"</em> → Oui = directe.</div>
+
+    <table class="ex-table" id="table-s1">
+      <thead>
+        <tr>
+          <th>Charge</th>
+          <th>Montant</th>
+          <th>Directe / Indirecte</th>
+          <th>Nature</th>
+          <th style="width:80px;"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-di="directe" data-fv="variable">
+          <td class="charge-name">Bois consommé</td>
+          <td class="charge-amt">18 000 €</td>
+          <td><select class="s-di"><option value="">— Choisir —</option><option>directe</option><option>indirecte</option></select></td>
+          <td><select class="s-fv"><option value="">— Choisir —</option><option>fixe</option><option>variable</option><option>semi-variable</option></select></td>
+          <td id="r-1-1"></td>
+        </tr>
+        <tr data-di="directe" data-fv="variable">
+          <td class="charge-name">Emballages spécifiques</td>
+          <td class="charge-amt">2 400 €</td>
+          <td><select class="s-di"><option value="">— Choisir —</option><option>directe</option><option>indirecte</option></select></td>
+          <td><select class="s-fv"><option value="">— Choisir —</option><option>fixe</option><option>variable</option><option>semi-variable</option></select></td>
+          <td id="r-1-2"></td>
+        </tr>
+        <tr data-di="directe" data-fv="variable">
+          <td class="charge-name">MOD assemblage</td>
+          <td class="charge-amt">9 000 €</td>
+          <td><select class="s-di"><option value="">— Choisir —</option><option>directe</option><option>indirecte</option></select></td>
+          <td><select class="s-fv"><option value="">— Choisir —</option><option>fixe</option><option>variable</option><option>semi-variable</option></select></td>
+          <td id="r-1-3"></td>
+        </tr>
+        <tr data-di="indirecte" data-fv="fixe">
+          <td class="charge-name">Loyer atelier</td>
+          <td class="charge-amt">4 500 €</td>
+          <td><select class="s-di"><option value="">— Choisir —</option><option>directe</option><option>indirecte</option></select></td>
+          <td><select class="s-fv"><option value="">— Choisir —</option><option>fixe</option><option>variable</option><option>semi-variable</option></select></td>
+          <td id="r-1-4"></td>
+        </tr>
+        <tr data-di="indirecte" data-fv="fixe">
+          <td class="charge-name">Salaire resp. production</td>
+          <td class="charge-amt">5 000 €</td>
+          <td><select class="s-di"><option value="">— Choisir —</option><option>directe</option><option>indirecte</option></select></td>
+          <td><select class="s-fv"><option value="">— Choisir —</option><option>fixe</option><option>variable</option><option>semi-variable</option></select></td>
+          <td id="r-1-5"></td>
+        </tr>
+        <tr data-di="indirecte" data-fv="variable">
+          <td class="charge-name">Électricité machines</td>
+          <td class="charge-amt">3 200 €</td>
+          <td><select class="s-di"><option value="">— Choisir —</option><option>directe</option><option>indirecte</option></select></td>
+          <td><select class="s-fv"><option value="">— Choisir —</option><option>fixe</option><option>variable</option><option>semi-variable</option></select></td>
+          <td id="r-1-6"></td>
+        </tr>
+        <tr data-di="indirecte" data-fv="semi-variable">
+          <td class="charge-name">Maintenance machine</td>
+          <td class="charge-amt">1 800 €</td>
+          <td><select class="s-di"><option value="">— Choisir —</option><option>directe</option><option>indirecte</option></select></td>
+          <td><select class="s-fv"><option value="">— Choisir —</option><option>fixe</option><option>variable</option><option>semi-variable</option></select></td>
+          <td id="r-1-7"></td>
+        </tr>
+        <tr data-di="indirecte" data-fv="fixe">
+          <td class="charge-name">Assurance bâtiment</td>
+          <td class="charge-amt">1 200 €</td>
+          <td><select class="s-di"><option value="">— Choisir —</option><option>directe</option><option>indirecte</option></select></td>
+          <td><select class="s-fv"><option value="">— Choisir —</option><option>fixe</option><option>variable</option><option>semi-variable</option></select></td>
+          <td id="r-1-8"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="fb-block" id="fb-1">
+      <h4>✅ Correction — Classification des charges</h4>
+      <p>Les charges <strong>directes</strong> s'imputent sans calcul intermédiaire à un produit précis (bois, emballages, MOD). Les <strong>indirectes</strong> concernent l'ensemble de l'activité et doivent être réparties via des clés (loyer, salaires, maintenance…).</p>
+      <ul>
+        <li><strong>Fixes :</strong> loyer, salaire responsable, assurance — elles ne bougent pas selon le volume produit.</li>
+        <li><strong>Variables :</strong> bois, emballages, MOD, électricité — elles évoluent avec la production.</li>
+        <li><strong>Semi-variable :</strong> maintenance — comporte un forfait de base + une part liée à l'utilisation.</li>
+      </ul>
+      <p style="margin-top:10px;font-size:13px;color:var(--muted);">Ce classement est la première brique du pilotage par les coûts : sans lui, on ne peut pas calculer de coût de revient fiable.</p>
+      <div class="fb-score" id="sc-1">Score : 0 / 16</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="valider()">Valider mes réponses →</button>
+      <a href="memo.html" class="btn btn-secondary">📋 Voir le mémo</a>
+      <button class="btn btn-ghost" onclick="passer()">Passer cette étape →</button>
+    </div>
+
+  </div>
+
+  <div class="btn-row" style="margin-top:8px;">
+    <a href="../index.html" class="btn btn-secondary">← Retour au menu</a>
+    <a href="etape2.html" class="btn btn-ghost" id="btn-next" style="display:none;">Étape suivante →</a>
+  </div>
+
+</div>
+
+<script src="../js/common.js"></script>
+<script>
+function valider() {
+  let pts = 0;
+  const rows = document.querySelectorAll('#table-s1 tbody tr');
+  rows.forEach((row, idx) => {
+    const di = row.dataset.di, fv = row.dataset.fv;
+    const vDi = row.querySelector('.s-di').value;
+    const vFv = row.querySelector('.s-fv').value;
+    const okDi = vDi === di, okFv = vFv === fv;
+    if (okDi) pts++;
+    if (okFv) pts++;
+    const n = idx + 1;
+    document.getElementById('r-1-' + n).innerHTML =
+      (okDi && okFv) ? '<span class="fb-ok">✓</span>' : '<span class="fb-ko">✗</span>';
+  });
+  setScore(1, pts);
+  document.getElementById('sc-1').textContent = 'Score : ' + pts + ' / 16';
+  showFeedback('fb-1');
+  document.getElementById('btn-next').style.display = '';
+  saveIdentity();
+}
+
+function passer() {
+  setScore(1, 0);
+  window.location.href = 'etape2.html';
+}
+</script>
+</body>
+</html>
